@@ -1,0 +1,25 @@
+1. removing row index column
+   https://www.quora.com/How-can-I-remove-the-auto-generated-column-that-numbers-the-rows-of-a-data-frame
+
+2. Center aligning plot title
+   https://stackoverflow.com/questions/40675778/center-plot-title-in-ggplot2
+
+3. Setting up  R code chunk globle options
+   https://stackoverflow.com/questions/38111198/rstudio-changing-default-code-chunk
+
+4. Adding mean value to a ggplot histogram
+   https://stackoverflow.com/questions/6557977/how-do-i-add-the-mean-value-to-a-histogram-in-r
+
+5. Sample Project
+   https://rpubs.com/inageorgescu/whitewine2
+
+6. Two legend from two datasets
+   https://stackoverflow.com/questions/44660412/two-legends-based-on-different-data-sets-in-two-different-positions-with-ggplot2
+
+   https://stackoverflow.com/questions/38619402/how-to-reorder-the-items-in-a-legend
+
+7. Disabling scientific notation
+   https://stackoverflow.com/questions/9397664/force-r-not-to-use-exponential-notation-e-g-e10
+
+8. Understand summary of linear model
+   https://feliperego.github.io/blog/2015/10/23/Interpreting-Model-Output-In-R
