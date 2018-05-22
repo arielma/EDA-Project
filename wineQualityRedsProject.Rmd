@@ -78,13 +78,10 @@ univariate_hist_plot <- function(attr, binw, plot_title, plot_xlab, from, to, by
 
 
 ```{r, quality}
-# create quality.factor column for converting quality into categorical data
-redwine$quality.factor <- ordered(redwine$quality, 
-                           levels=c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 # Centering title of the plot
 theme_update(plot.title = element_text(hjust = 0.5))
-ggplot(data = redwine, aes(x= quality.factor)) +
-  geom_histogram(stat = 'count') +
+ggplot(data = redwine, aes(x= factor(quality))) +
+  geom_bar(stat = 'count') +
   labs(x = 'Quality', title = 'Distribution by Quality')
 ```
 
@@ -106,6 +103,7 @@ univariate_hist_plot('fixed.acidity',
 ```
 
 
+
 According to the data description, fixed acids are the most acids involved with wine and do not evaporate. The distribution of fixed acidity of the 1599 wine population is slightly right skewed with and average around 8g/dm^3 and median of 8.3g/dm^3. 
 ```{r, volatile_acidity}
 univariate_hist_plot('volatile.acidity',
@@ -124,7 +122,7 @@ Too high of levels in volatile acidity can lead to an unpleasant vinegar taste. 
 univariate_hist_plot('citric.acid',
                      0.025, 
                      'Distribution by Citric Acid', 
-                     'citric.acid (g / dm^3)',
+                     'Citric Acid (g / dm^3)',
                      0,
                      1,
                      0.1)
@@ -151,8 +149,7 @@ redwine <- redwine[, c("fixed.acidity",
                        "pH", 
                        "sulphates", 
                        "alcohol", 
-                       "quality", 
-                       "quality.factor")]
+                       "quality")]
 
 univariate_hist_plot('total.acidity', 
                      0.5, 
@@ -163,6 +160,7 @@ univariate_hist_plot('total.acidity',
                      1)
 
 ```
+
 
 
 Since the amount of Fixed Acidity is far more larger than the amount of Volatile Acidity and Citric Acid, the distribution of Total Acidity is almost the same as for Fixed Acidity. I am interested to see later on how pH can vary by the amount of different types of acid.
@@ -179,6 +177,8 @@ univariate_hist_plot('residual.sugar',
 ```
 
 
+
+
 Residual sugar is the sugar remaning after fermentation stops. Most of wines will have residual sugar between 1 to 45 g/liter. In our dataset, the majority of wines fall in to range 1.5 to 3 g/dm^3 with an average of 2.54g/dm^3 and median of 2.2g/dm^3.
 ```{r, Chlorides}
 
@@ -190,6 +190,7 @@ univariate_hist_plot('chlorides',
                      0.7,
                      0.05)
 ```
+
 
 
 X axis here shows chloride - that is the amont of salt - in the wine. Most of the wines have salt in range 0.05 to 0.1g/dm^3. There are outliers that has more than 0.3g/dm^e chloride.
@@ -206,6 +207,7 @@ univariate_hist_plot('free.sulfur.dioxide',
 
 ```
 
+
 ```{r, free_sulfur_dioxide, bin width}
 univariate_hist_plot('free.sulfur.dioxide',
                      0.1, 
@@ -213,8 +215,9 @@ univariate_hist_plot('free.sulfur.dioxide',
                      'Free Sulfur Dioxide (mg / dm^3)',
                      0,
                      75,
-                     1)
+                     5)
 ```
+
 
 
 Free sulfur dioxide helps to prevent microbial growth and the oxidation of wine. By changing the bin width, it seems that free sulfur dioxide amount in the wine collection are all integer in mg/dm^3, with a mean of 15.87mg/dm^3, and median 14mg/dm^3.
@@ -231,6 +234,7 @@ univariate_hist_plot('total.sulfur.dioxide',
                      20)
 ```
 
+
 ```{r, total_sulfur_dioxide, bin width}
 univariate_hist_plot('total.sulfur.dioxide',
                      1, 
@@ -240,6 +244,7 @@ univariate_hist_plot('total.sulfur.dioxide',
                      300,
                      20)
 ```
+
 
 ```{r, total_sulfur_dioxide, bin width, zooming in}
 ggplotly((ggplot(redwine, aes(x = total.sulfur.dioxide)) +
@@ -259,6 +264,7 @@ ggplotly((ggplot(redwine, aes(x = total.sulfur.dioxide)) +
                  )
 ```
 
+
 Total sulfur dioxide respresents the amount of free and bound forms of SO2. SO2 will become evident in the mose when free SO2 concentrations is over 50 ppm. 
 
 After changing the bin size and removing outlier, it seems that total sulfur dioxide is also presented in integer and the average is 46.46mg/dm^3, median is 38mg/dm^3.
@@ -275,6 +281,7 @@ univariate_hist_plot('density',
                      0.005)
 ```
 
+
 Density of wine depends on the percentage of alcohol and sugar content. Density follows a normal distribution with mean and median around 0.997g/cm^3.
 
 ```{r, pH}
@@ -287,6 +294,7 @@ univariate_hist_plot('pH',
                      5,
                      0.5)
 ```
+
 
 pH describes how acidic or basic a wine is on a scale from 0 (very acidic) to 14 (very basic). pH of the wine samples also show a formal distribution with mean and median around 3.3.
 
@@ -301,6 +309,7 @@ univariate_hist_plot('sulphates',
                      0.5)
 ```
 
+
 Sulphate is a wine addtive which can contribute to sulfur dioxide gas levels, which acts as an antimicrobial and antioxidant. The distribution of sulphate is right skewed with a mean of 0.66g/dm^3 and median of 0.62g/dm^3.
 
 ```{r, alccohol}
@@ -314,13 +323,14 @@ univariate_hist_plot('alcohol',
                      1)
 ```
 
+
 Alcohol attribute shows how much alcohol by volumne in the wine sample. The average alcohol content in the wine samples is 10.42% and median is 10.2%.
 
 # Univariate Analysis
 
 
 ### What is the structure of your dataset?
-The dataset has 1599 wine samples and each sample has 12 attributes accociated. I have created a column named total.acidity to represent the sum of different type of acids. I have also created a factor column quality.factor based on numberic column Quality. All attributes and their measured unit are listed below:  
+The dataset has 1599 wine samples and each sample has 12 attributes accociated. I have created a column named total.acidity to represent the sum of different type of acids. All attributes and their measured unit are listed below:  
 1. fixed acidity (tartaric acid - g / dm^3)  
 2. volatile acidity (acetic acid - g / dm^3)  
 3. citric acid (g / dm^3)  
@@ -333,8 +343,7 @@ The dataset has 1599 wine samples and each sample has 12 attributes accociated. 
 10. pH  
 11. sulphates (potassium sulphate - g / dm3)  
 12. alcohol (% by volume)   
-13. quality (Numeric column with value between 0 to 10)  
-14. quality factor (factor column derived from quality)  
+13. quality (Numeric column with value between 0 to 10)
    
 ### What is/are the main feature(s) of interest in your dataset?
 I am interested to see the relationship between citric acid and quality, between residual sugar and quality, and the relationship between alcohol and quality. 
@@ -344,8 +353,7 @@ investigation into your feature(s) of interest?
 Since density is depending on the amount of alcohol and sugur in the wine, I will be looking at the relationship between density and alcohol and the relationship between density and residual sugar. 
 
 ### Did you create any new variables from existing variables in the dataset?
-I have created a new variable quality.factor to transform the numeric data into a categorical data.  
-I have also created a column total.acidity for observing the relationship between total acidity and quality and total acidity and pH.
+I have created a column total.acidity for observing the relationship between total acidity and quality and total acidity and pH.
 
 ### Of the features you investigated, were there any unusual distributions? \
 Did you perform any operations on the data to tidy, adjust, or change the form \
@@ -628,23 +636,32 @@ ggplotly(ggplot() +
   )
 ```
 
+
 The above plot shows the trend of the amount of each acid, the total amount of acid with quality increasing.
 
 We can see that fixed acidity and total acidity almost have the same trend. The amount of citric acidity and volatile acidity have the opposite trends and you are expecting same amount of citric acid and volatile acidity in high quality wines.
 
 What also draws my attention is there seems to be a strong negative relationship bewteen chlorides and auality, although in the pair plot the correlation value is only -0.12. 
 
-```{r, Chlorides vs Quality}
-ggplotly(ggplot(data = redwine, aes(x = chlorides, y = quality)) +
-  geom_point(alpha = 1/10, position = 'jitter') +
-  scale_y_continuous(breaks = c(3:8)) +
-  labs(x = 'Chlorides (g/dm^3)',
-       y = 'Quality',
+
+```{r, boxplot - Chlorides vs Quality}
+# From reviewer: For two numeric variables, correlation coefficient and scatterplot is a good 
+# choice, for categorical vs   numerical variables, the most common exploring 
+# visualisation method is boxplot, for variables like quality goes with alcohol
+# or others, it's better to use boxplot, for variables like alcohol vs density, 
+# scatterplot is recommended. Thank you!
+ 
+# Using factor(quality) to convert numberic data to categorical data.
+ggplot(data = redwine, aes(x = factor(quality), y = chlorides)) +
+  geom_jitter(alpha = 1/10) +
+  geom_boxplot(alpha = 1/10, color = 'blue') +
+  stat_summary(fun.y = 'mean', geom = 'point', color = 'red') +
+  labs(x = 'Quality',
+       y = 'Chlorides (g/dm^3)',
        title = 'Chlorides vs Quality')
-  )
 ```
 
-A scatter plot shows that there is no obvious correlation between Chlorides and Quality. There are some outliers for wines graded between 4 and 7. However, the majority of wines have the amount of Chlorides of 0.05 to 0.1g/dm^3, including the highest graded wines. 
+The box plot shows that there is no obvious correlation between Chlorides and Quality. There are some outliers for wines graded between 4 and 7. However, the majority of wines have the amount of Chlorides of 0.05 to 0.1g/dm^3, including the highest graded wines. 
 
 
 ## Correlation Matrix
@@ -732,16 +749,18 @@ The value of F-statistic is 468.3 which shows that there is definitely a relatio
 Is it possible that if we add more variables and the model will predict wine quality better?
 
 ```{r, Quality, Alcohol, Sulphates - 2D Scatterplot}
-ggplot(data = redwine, aes(x = sulphates, y = alcohol, color = quality.factor)) + 
-  geom_point(alpha = 1/4) +
+ggplot(data = redwine, aes(x = sulphates, y = alcohol, color = factor(quality))) + 
+  geom_jitter() +
   geom_smooth(method = "lm",se = FALSE, size= 1) +
   scale_color_brewer(type='seq',
                      guide=guide_legend(title='Quality')
                     ) +
+  theme_dark() +
   labs(x = 'Sulphates (g/dm^3)',
        y = 'Alcohol (% of vol)',
        z = 'Quality')
 ```
+
 
 
 Although it is not as obvious as the correlation between alcohol and quality, we can also see that good quality wines have less amount of concentration of sulphates. So what if we add sulphates as another variable when building linear model to predict wine quality? Would alcohol and sulphates together be a better predictor?
@@ -756,16 +775,19 @@ summary(alcohol_sulphate_quality_lm)
 We can see that R^2 of the multiple linear model with alcohol and sulphates as predictor is slightly higher than our linear model of alcohol against quality.
 
 ```{r, Quality, Alcohol, Citric Acidity - Scatterplot}
-ggplot(data = redwine, aes(x = citric.acid, y = alcohol, color = quality.factor)) + 
-  geom_point(alpha = 1/4) +
+ggplot(data = redwine, aes(x = citric.acid, y = alcohol, color = factor(quality))) + 
+  geom_jitter() +
   geom_smooth(method = "lm",se = FALSE, size= 1) +
   scale_color_brewer(type='seq',
                      guide=guide_legend(title='Quality')
                     ) +
+  theme_dark() +
   labs(x = 'Citric Acid (g/dm^3)',
        y = 'Alcohol (% of vol)',
        z = 'Quality')
 ```
+
+
 Although we observed from previous section that citric acid has a positive relationship with quality, from above scatterplot, we can tell that this trend no longer obvious when adding alcohol.
 
 Looking at the linear model built by alcohol, sulphates, citric acid, the R^2 value increases slightly to 0.28 showing that the model is a little better than only using alcohol and sulphates as variables.
@@ -777,24 +799,18 @@ summary(alcohol_sulphate_citric_acid_quality_lm)
 
 ### Talk about some of the relationships you observed in this part of the \
 investigation. Were there features that strengthened each other in terms of \
-looking at your feature(s) of interest?
+looking at your feature(s) of interest?  
+
 Alcohol, sulphates and citric acid all play a positive role in increasing wine quality.
 
 
 ### OPTIONAL: Did you create any models with your dataset? Discuss the \
-strengths and limitations of your model.
+strengths and limitations of your model.  
+
 I have created 3 linear models. The first model alcohol_quality_lm uses only alcohol as a variables to predict wine Quality. The second model alcohol_sulphate_quality_lm uses alcohol and sulphates to predict quality. The third model alcohol_sulphate_citric_acid_quality_lm uses alcohol, sulphates and citric acid to predict quality. Each model generate a better prediction then the previous one. However, the best model is with a relatively low R^2 value as 0.28. I think there must be other models that can provide a far better prediction. Therefore I will not create any models for predicting wine quality.
-------
+
 
 # Final Plots and Summary
-
-> **Tip**: You've done a lot of exploration and have built up an understanding
-of the structure of and relationships between the variables in your dataset.
-Here, you will select three plots from all of your previous exploration to
-present here as a summary of some of your most interesting findings. Make sure
-that you have refined your selected plots for good titling, axis labels (with
-units), and good aesthetic choices (e.g. color, transparency). After each plot,
-make sure you justify why you chose each plot by describing what it shows.
 
 ### Plot One
 ```{r echo=FALSE, Plot_One}
@@ -804,8 +820,11 @@ grid.arrange(g1, g2, g3, g4,
              ncol=4, top="Mean of Supporting Variables by Quality")
 ```
 
+
 ### Description One
 This plot shows the trend of mean of each variable vs different quality grades. This graph provides a better visualisation than the correlation matrix to convey the relationship between variable and quality.
+
+From the plot we can tell that volatile acidity and chlorides both have obvious negative relationship with quality; whereas citric acid, sulphates and alcohal shows positive correlation with quality respectively. I did closer inspection on these variables and tried to build linear models based on these attributes in Multivariate Analysis. Althoug the model is getting slightly better in predicting the wine quality as more variable being added, the best model made by alcohol, citric acid still have the R^2 value (0.28) too small to be an ideal predicting model. 
 
 ### Plot Two
 ```{r echo=FALSE, Plot_Two}
@@ -838,10 +857,9 @@ ggplotly(ggplot() +
 ```
 
 
-This plot helps to understand how much each acid contribute to the total acidity. Also it shows the trend of acid changes as quality is increasing. Depite the increase and decrease of citric acid and volatile acidity, the trend of fixed acidity follows the exact same trend as total acidity. This shows that as quality goes higher, the changes of citric acid and volatile acidity offset each other.
-
 ### Description Two
 
+This plot helps to understand how much each acid contribute to the total acidity. Also it shows the trend of acid changes as quality is increasing. Depite the increase and decrease of citric acid and volatile acidity, the trend of fixed acidity follows the exact same trend as total acidity. This shows that as quality goes higher, the changes of citric acid and volatile acidity offset each other.
 
 ### Plot Three
 ```{r echo=FALSE, Plot_Three}
@@ -873,4 +891,4 @@ I explored the red wine data set by first drew histograms of distribution of eac
 
 The biggest challenges faced completing this analysis was translating my findings into graphs and better convey the insight. There were lots of thoughts involved and I would say most of the time was spent on thinking how to organise and make the visualisation easy to understand yet informative. 
 
-I wish the data set could include the producing area of the wine as well as the producing year of the wine. More visualisations could be created - e.g. heatmap, time series plot - if these attribute were provided and I think it will make both the analyst and audience more engaged ("Oh this wine is from my hometown!"). I also would like to adopt machine learning knowledge to find a better model to predict the quality of wine based on its attributes.
+I wish the data set could include the producing area of the wine as well as the producing year of the wine. More visualisations could be created - e.g. heatmap, time series plot - if these attribute were provided and I think it will make both the analyst and audience more engaged ("This wine is from my hometown!"). I also would like to adopt machine learning knowledge to find a better model to predict the quality of wine based on its attributes.
