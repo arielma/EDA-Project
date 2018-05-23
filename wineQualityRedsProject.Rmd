@@ -1,6 +1,13 @@
-
-Red Wine Exploration by Ariel Ma
-========================================================
+---
+title: "Red Wine Exploration"
+author: "Ariel Ma"
+date: "23/05/2018"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
 
 ```{r global_options, include=FALSE}
 # Set up global code chunk options to not show code, warning and message in 
@@ -891,4 +898,4 @@ I explored the red wine data set by first drew histograms of distribution of eac
 
 The biggest challenges faced completing this analysis was translating my findings into graphs and better convey the insight. There were lots of thoughts involved and I would say most of the time was spent on thinking how to organise and make the visualisation easy to understand yet informative. 
 
-I wish the data set could include the producing area of the wine as well as the producing year of the wine. More visualisations could be created - e.g. heatmap, time series plot - if these attribute were provided and I think it will make both the analyst and audience more engaged ("This wine is from my hometown!"). I also would like to adopt machine learning knowledge to find a better model to predict the quality of wine based on its attributes.
+I wish the data set could include the producing area of the wine as well as the producing year of the wine. More visualisations could be created - e.g. choropleth map, time series plot - if these attribute were provided and I think it will make both the analyst and audience more engaged ("This wine is from my hometown!"). I also would like to adopt machine learning knowledge to find a better model to predict the quality of wine based on its attributes.
